@@ -91,24 +91,35 @@ public class QuizApp {
         System.out.print("Enter question: ");
         String question = scanner.nextLine();
         System.out.print("Option 1: ");
-        String option1 = scanner.nextLine();
+        String optionA = scanner.nextLine();
         System.out.print("Option 2: ");
-        String option2 = scanner.nextLine();
+        String optionB = scanner.nextLine();
         System.out.print("Option 3: ");
-        String option3 = scanner.nextLine();
+        String optionC = scanner.nextLine();
         System.out.print("Option 4: ");
-        String option4 = scanner.nextLine();
-        System.out.print("Enter correct option (1-4): ");
-        int correctOption = scanner.nextInt();
-        scanner.nextLine(); 
+        String optionD = scanner.nextLine();
+        
+        int correctOption;
+        while (true) {
+            System.out.print("Enter correct option (1-4): ");
+            String input = scanner.nextLine();
+            try {
+                correctOption = Integer.parseInt(input);
+                if (correctOption >= 1 && correctOption <= 4) break; // Valid input
+                else System.out.println("Please enter a number between 1 and 4.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number between 1 and 4.");
+            }
+        }
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO questions (question, option1, option2, option3, option4, correct_option) VALUES (?, ?, ?, ?, ?, ?)");
+            String query = "INSERT INTO questions (question_text, option_a, option_b, option_c, option_d, correct_option) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, question);
-            stmt.setString(2, option1);
-            stmt.setString(3, option2);
-            stmt.setString(4, option3);
-            stmt.setString(5, option4);
+            stmt.setString(2, optionA);
+            stmt.setString(3, optionB);
+            stmt.setString(4, optionC);
+            stmt.setString(5, optionD);
             stmt.setInt(6, correctOption);
             stmt.executeUpdate();
             System.out.println("Question added successfully!");
@@ -116,6 +127,7 @@ public class QuizApp {
             e.printStackTrace();
         }
     }
+
 
     private static void updateQuestion() {
         System.out.print("Enter question ID to update: ");
