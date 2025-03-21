@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class QuizApp {
     private static final String URL = "jdbc:postgresql://localhost:5432/quiz_system";
-    private static final String USER = "postgres"; // Change this
-    private static final String PASSWORD = "123"; // Change this
+    private static final String USER = "postgres"; 
+    private static final String PASSWORD = "123"; 
 
     private static Connection conn;
     private static Scanner scanner = new Scanner(System.in);
@@ -177,11 +177,11 @@ public class QuizApp {
             int score = 0;
 
             while (rs.next()) {
-                System.out.println("\n" + rs.getString("question"));
-                System.out.println("1. " + rs.getString("option1"));
-                System.out.println("2. " + rs.getString("option2"));
-                System.out.println("3. " + rs.getString("option3"));
-                System.out.println("4. " + rs.getString("option4"));
+                System.out.println("\n" + rs.getString("question_text"));
+                System.out.println("1. " + rs.getString("option_a"));
+                System.out.println("2. " + rs.getString("option_b"));
+                System.out.println("3. " + rs.getString("option_c"));
+                System.out.println("4. " + rs.getString("option_d"));
                 System.out.print("Your answer: ");
                 int answer = scanner.nextInt();
                 scanner.nextLine();
